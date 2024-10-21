@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="OnLoad">
+	<ribbon>
+		<tabs>
+			<tab id="Oh58libGroupTab" label="OH-58Lib">
+				<group id="Oh58libGroup" label="Mission File">
+					<button id="PressMeButton" label="Export Mission"
+					   imageMso="XmlExport" size="large" onAction="OnButtonPressed" />
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

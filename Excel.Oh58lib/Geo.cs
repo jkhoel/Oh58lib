@@ -1,76 +1,20 @@
-﻿using ExcelDna.Integration;
-using CoordinateSharp;
+﻿using CoordinateSharp;
 using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
+using Excel.Oh58lib.Models;
 
 namespace Excel.Oh58lib
 {
-	[ComVisible(true)]
+    //[ComVisible(true)]
 	public class Geo
 	{
-		private static readonly Theaters Theaters = new();
-
 		private readonly Theater _activeTheater;
 
-		public Geo()
+		public Geo(Theater activeTheater)
 		{
-			_activeTheater = Theaters.Kola;
+			_activeTheater = activeTheater;
 		}
 
-		#region EXCEL FUNCTIONS
-
-		[ExcelFunction(Description = "Convert Latitude and Longitude in DMS format to MGRS")]
-		public static string MGRS(string coordinate)
-		{
-			if (string.IsNullOrWhiteSpace(coordinate))
-				return string.Empty;
-
-			var geo = new Geo();
-			return geo.LatLonToMGRS(coordinate);
-		}
-
-		[ExcelFunction(Description = "Convert Latitude and Longitude in DMS format to DCS coordiantes")]
-		public static string DcsCoordinates(string coordinate)
-		{
-			if (string.IsNullOrWhiteSpace(coordinate))
-				return string.Empty;
-
-			var geo = new Geo();
-
-			var coords = geo.ToDcsCoordiantes(coordinate);
-
-			return $"X{coords.Easting} Z{coords.Northing}";
-		}
-
-		[ExcelFunction(Description = "Convert Latitude and Longitude in DMS format to DCS coordiantes and returns Easting (X)")]
-		public static string DcsCoordinateX(string coordinate)
-		{
-			if (string.IsNullOrWhiteSpace(coordinate))
-				return string.Empty;
-
-			var geo = new Geo();
-
-			var coords = geo.ToDcsCoordiantes(coordinate);
-
-			return $"{coords.Easting}";
-		}
-
-		[ExcelFunction(Description = "Convert Latitude and Longitude in DMS format to DCS coordiantes and returns Northing (Z)")]
-		public static string DcsCoordinateZ(string coordinate)
-		{
-			if (string.IsNullOrWhiteSpace(coordinate))
-				return string.Empty;
-
-			var geo = new Geo();
-
-			var coords = geo.ToDcsCoordiantes(coordinate);
-
-			return $"{coords.Northing}";
-		}
-
-		#endregion
-
-		#region C# FUNCTIONS
+		#region GEO FUNCTIONS
 		/// <summary>
 		/// Converts a coordinate string formatted as "N67:15:10 E014:55:55" to MGRS
 		/// </summary>
@@ -93,7 +37,7 @@ namespace Excel.Oh58lib
 		{
 			var (latitude, longitude) = ParseCoordinate(coordinate);
 
-			return UtmConverter.FromLatLon(latitude, longitude, _activeTheater.UTM_zone, _activeTheater.DCS_origin_easting, _activeTheater.DCS_origin_northing);
+			return UtmConverter.FromLatLon(latitude, longitude, _activeTheater.UTM_zone, _activeTheater.false_easting, _activeTheater.false_northing);
 		}
 
 

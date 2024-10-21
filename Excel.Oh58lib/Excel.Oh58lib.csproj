@@ -7,8 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ribbon\RibbonController.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Ribbon\RibbonController.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CoordinateSharp" Version="2.24.2.1" />
     <PackageReference Include="ExcelDna.Addin" Version="*-*" />
+    <PackageReference Include="ExcelDna.Interop" Version="15.0.1" />
+    <PackageReference Include="ExcelDna.XmlSchemas" Version="1.0.0" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

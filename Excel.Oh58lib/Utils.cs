@@ -9,7 +9,7 @@ namespace Excel.Oh58lib
 			XmlSerializer serializer = new XmlSerializer(typeof(T));
 			using (StreamReader reader = new StreamReader(filePath))
 			{
-				return (T)serializer.Deserialize(reader);
+                return (T)serializer.Deserialize(reader);
 			}
 		}
 	}
